@@ -126,4 +126,7 @@ Temporary Items
 # iCloud generated files
 *.icloud
 
+# My Ignore Files
+DBConnector.java
+
 # End of https://www.toptal.com/developers/gitignore/api/macos,eclipse,java
