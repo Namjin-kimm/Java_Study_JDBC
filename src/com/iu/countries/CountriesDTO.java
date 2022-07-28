@@ -3,6 +3,7 @@ package com.iu.countries;
 public class CountriesDTO {
 	private String country_id;
 	private String country_name;
+	private int region_id;
 	
 	
 	public String getCountry_id() {
@@ -18,6 +19,12 @@ public class CountriesDTO {
 		this.country_name = country_name;
 	}
 	
+	public int getRegion_id() {
+		return region_id;
+	}
+	public void setRegion_id(int region_id) {
+		this.region_id = region_id;
+	}
 	
 
 }

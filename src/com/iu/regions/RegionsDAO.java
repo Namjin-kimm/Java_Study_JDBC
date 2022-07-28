@@ -5,9 +5,36 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import javax.naming.PartialResultException;
+
 import com.iu.util.DBConnector;
 
 public class RegionsDAO {
+	
+	//3. Regions에 데이터 추가
+	public int setRegion(RegionsDTO regionsDTO)throws Exception{
+		//1. DB연결
+		Connection con = DBConnector.getConnection();
+		
+		//2. 쿼리문 작성
+		String sql = "INSERT INTO REGIONS VALUES(?,?)";
+		
+		//3. 쿼리문 미리 전송
+		PreparedStatement st = con.prepareStatement(sql);
+		
+		//4. ? 있다면 값 세팅
+		st.setInt(1, regionsDTO.getRegion_id());
+		st.setString(2, regionsDTO.getRegion_Name());
+		
+		//5. 최종 전송 후 결과 처리
+		int result = st.executeUpdate();
+		
+		//6. 자원 해제
+		DBConnector.disConnect(st, con);
+		
+		return result;
+	}
+	
 	//2 Regions에서 하나의 결과(row)
 	public RegionsDTO getDetail(int region_id) throws Exception{
 		//ArrayList<RegionsDTO> ar = new ArrayList<>();
