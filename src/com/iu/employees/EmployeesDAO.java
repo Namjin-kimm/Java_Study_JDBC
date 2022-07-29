@@ -9,6 +9,39 @@ import com.iu.util.DBConnector;
 
 public class EmployeesDAO {
 	
+	public void  getJoinTest(EmployeesDTO employeesDTO)throws Exception{
+		//1.DB 연결
+		Connection con = DBConnector.getConnection();
+		
+		//2.SQL문 생성
+		String sql = "SELECT E.LAST_NAME,SALARY, D.DEPARTMENT_NAME "
+				+ "		FROM EMPLOYEES E "
+			    + "		INNER JOIN "
+			    + "		DEPARTMENTS D "
+			    + "		ON E.DEPARTMENT_ID = D.DEPARTMENT_ID "
+			    + "WHERE E.EMPLOYEE_ID = 100";
+		
+		//3. 미리 전송
+		PreparedStatement st = con.prepareStatement(sql);
+		
+		//4. ? 값 세팅
+		st.setInt(1, employeesDTO.getEmployee_id());
+		
+		//5. 전송 후 결과 처리
+		ResultSet rs = st.executeQuery();
+		
+		if(rs.next()) {
+			employeesDTO = new EmployeesDTO();
+			employeesDTO.setLast_name(rs.getString("last_name"));
+			employeesDTO.setSalary(rs.getInt("salary"));
+//			DepartmentsDTO dt = new DepartmentsDTO
+//			dt.setDepartment_name(rs.getString("department_name"));	
+		}
+		
+		//6. 연결 해제
+		DBConnector.disConnect(st, con);
+	}
+	
 	public void getSalaryInfo() throws Exception{
 		//1. DB 연결
 		Connection con = DBConnector.getConnection();
